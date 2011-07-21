@@ -1,22 +1,19 @@
 #pragma once
 #include "Magic.h"
 
-class IOHandle
+class IODHandler
 {
 private:
 	bool terminate;
-	Magic obj;
-	Matrix m;
+	Magic mObj;
 
 public:
-	time_t start;
-	time_t end;
-	IOHandle(void);
-	~IOHandle(void);
-	bool exit();
+	IODHandler(void);
+	~IODHandler(void);
 	void run();
+	bool exit();
 	void parseInput();
 	void listCommands();
-
+	void throwException(int i);
 };
 

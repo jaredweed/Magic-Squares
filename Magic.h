@@ -1,45 +1,32 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <cmath>
-using namespace std;
+#include "STDMatrix.h"
 
-#define VERSION "1.0 (June 21st, 2011)"
-#define AUTHOR "Jared Weed"
-#define N 4
-#define Nsq N * N
-#define M N * (N * N + 1) / 2
-
-
-struct Matrix{
-	int ctype;
-	int cell[N][N];
-	Matrix *next;
-};
+#pragma once
+#include "STDMatrix.h"
 
 class Magic
 {
 private:
-	unsigned long total;
-	Matrix *head;
+	int remaining[NSQ];
 
 public:
-	int remaining[Nsq];
+	vector<STDMatrix> magics;
+	STDMatrix builder;
 	Magic(void);
 	~Magic(void);
-	bool isMagic(Matrix *A);
-	unsigned long count();
-	void makeSquares3(int (&B)[Nsq], Matrix *A, int n);
-	void makeSquares4(int (&B)[Nsq], Matrix *A, int n);
-	void makeSquares5(int (&B)[Nsq], Matrix *A, int n);
-	void push(Matrix *A);
-	void pop(Matrix *A);
-	bool unique(Matrix *A, Matrix *B);
-	void printSquare(Matrix *A);
-	void permute(int perm[], Matrix *A);
-	void permute(Matrix *A, int perm[]);
-	void classify();
-	void sort();
+	void simpleSort();
+	void sortByEnumeration();
+	void sortByClassification();
+	void classifyOrder4();
+	void push(STDMatrix &A);
+	void pull();
+	void findUnique_shallow();
+	void findUnique_deep();
+	void createSquares(); // entry point for N-order creation from IOHandler
+
+/* square creation setting */
+	void createOrder3(int (&B)[NSQ], STDMatrix &A, int n);
+	void createOrder4(int (&B)[NSQ], STDMatrix &A, int n);
+	void createOrder5(int (&B)[NSQ], STDMatrix &A, int n);
 };
 
