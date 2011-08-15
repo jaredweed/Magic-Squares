@@ -1,8 +1,10 @@
 #pragma once
-#include "gVars.h"
+
+#include "gHeader.h"
 
 class STDMatrix
 {
+
 private:
 	int classType;
 
@@ -10,14 +12,15 @@ public:
 	int c[N][N];
 	STDMatrix(void);
 	~STDMatrix(void);
-	bool isMagic();
-	void print();
-	int getClass();
-	void classify();
-	void permute_l(int p);
-	void permute_r(int p);
-	void transpose();
-	bool operator=(const STDMatrix& m) const;
+	void operator=(const STDMatrix& m);
+	bool operator==(const STDMatrix& m) const;
 	bool operator>(const STDMatrix& m) const;
+	void print();
+	int getType();
+	void setType(int t);
+	void pA(int p); //permute from left
+	void Ap(int p); //permute from right
+	void pAp(int p); //permute from both
+	void transpose();
 };
 

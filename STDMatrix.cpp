@@ -1,10 +1,60 @@
 #include "STDMatrix.h"
 
 
-STDMatrix::STDMatrix(){
+STDMatrix::STDMatrix(void)
+{
 }
 
-STDMatrix::~STDMatrix(){
+
+STDMatrix::~STDMatrix(void)
+{
+}
+
+
+void STDMatrix::operator=(const STDMatrix& m) {
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			c[i][j] = m.c[i][j];
+		}
+	}
+}
+
+
+bool STDMatrix::operator==(const STDMatrix& m) const{
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++){
+			if(c[i][j] != m.c[i][j])
+				return false;
+		}
+	}
+	return true;
+}
+
+
+bool STDMatrix::operator>(const STDMatrix& m) const {
+	if(c[0][0] > m.c[0][0])
+		return true;
+	if(c[0][0] < m.c[0][0])
+		return false;
+	if(c[0][1] > m.c[0][1])
+		return true;
+	if(c[0][1] < m.c[0][1])
+		return false;
+	if(c[1][0] > m.c[1][0])
+		return true;
+	if(c[1][0] < m.c[1][0])
+		return false;
+	if(c[1][1] > m.c[1][1])
+		return true;
+	if(c[1][1] < m.c[1][1])
+		return false;
+	if(c[0][2] > m.c[0][2])
+		return true;
+	if(c[0][2] < m.c[0][2])
+		return false;
+	if(c[2][0] > m.c[2][0])
+		return true;
+	return false;
 }
 
 void STDMatrix::print(){
@@ -13,34 +63,24 @@ void STDMatrix::print(){
 			cout << setw(2) << c[i][j] << " ";
 		}
 		cout << endl;
+		if(i == N-1)
+			cout << "\nTYPE " << classType;
 	}
 }
 
-int STDMatrix::getClass(){
-	return classType;
+int STDMatrix::getType(){
+	if(classType > 0)
+		return classType;
+	else
+		return -1;
 }
 
-bool STDMatrix::operator=(const STDMatrix& m) const {
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < N; j++){
-			if(this->c[i][j] == m.c[i][j])
-				return false;
-		}
-	}
-	return true;
+void STDMatrix::setType(int t){
+	classType = t;
 }
 
-bool STDMatrix::operator>(const STDMatrix& m) const {
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < N; j++){
-			if(this->c[i][j] > m.c[i][j])
-				return true;
-		}
-	}
-	return false;
-}
 
-void STDMatrix::permute_l(int p){
+void STDMatrix::pA(int p){
 	int pArr[N];
 	int pCheck[N] = {0,0,0,0};
 	int temp;
@@ -61,7 +101,8 @@ void STDMatrix::permute_l(int p){
 	}
 }
 
-void STDMatrix::permute_r(int p){
+
+void STDMatrix::Ap(int p){
 	int pArr[N];
 	int pCheck[N] = {0,0,0,0};
 	int temp;
@@ -82,6 +123,13 @@ void STDMatrix::permute_r(int p){
 	}
 }
 
+
+void STDMatrix::pAp(int p){
+	pA(p);
+	Ap(p);
+}
+
+
 void STDMatrix::transpose(){
 	int temp;
 	for(int i = 1; i < N; i++){
@@ -92,3 +140,4 @@ void STDMatrix::transpose(){
 		}
 	}
 }
+
